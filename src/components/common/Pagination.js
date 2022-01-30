@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import PropTypes from 'prop-types'
 
 const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
@@ -13,7 +12,7 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
 						key={page}
 						className={page === currentPage ? 'page-item active' : 'page-item'}
 						onClick={() => onPageChange(page)}>
-						<a className='page-link'>{page}</a>
+						<div className='page-link'>{page}</div>
 					</li>
 				))}
 			</ul>

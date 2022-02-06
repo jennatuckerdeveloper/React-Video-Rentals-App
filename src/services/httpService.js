@@ -2,6 +2,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import logger from './logService'
+import jwtDecode, { jwt_decode } from 'jwt-decode'
 
 // Add a response interceptor
 axios.interceptors.response.use(
@@ -27,9 +28,14 @@ axios.interceptors.response.use(
 	}
 )
 
+const setJwt = (jwt) => {
+	axios.defaults.headers.common['x-auth-token'] = jwt
+}
+
 export const http = {
 	get: axios.get,
 	post: axios.post,
 	put: axios.put,
-	delete: axios.delete
+	delete: axios.delete,
+	setJwt
 }

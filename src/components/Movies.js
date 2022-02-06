@@ -119,6 +119,8 @@ export default class Movies extends Component {
 			searchString
 		} = this.state
 
+		const { user } = this.props
+
 		const { genreMoviesCount, movies } = this.getPagedData()
 
 		if (allMovies.length === 0) return <p>There are no movies to display.</p>
@@ -134,14 +136,16 @@ export default class Movies extends Component {
 				</div>
 
 				<div className='col mt-3'>
-					<button
-						type='button'
-						className='btn btn-primary mb-4'
-						onClick={() =>
-							this.props.navigate('movies/new', { replace: true })
-						}>
-						New Movie
-					</button>
+					{user && user.isAdmin && (
+						<button
+							type='button'
+							className='btn btn-primary mb-4'
+							onClick={() =>
+								this.props.navigate('movies/new', { replace: true })
+							}>
+							New Movie
+						</button>
+					)}
 
 					<p>There are {genreMoviesCount} movies in the database.</p>
 					<FormInput

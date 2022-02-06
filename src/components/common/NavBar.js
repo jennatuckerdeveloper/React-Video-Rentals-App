@@ -1,6 +1,7 @@
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
 	const linkStyle = (active) =>
 		active ? 'nav-link text-dark font-weight-bold' : 'nav-link text-dark'
 	return (
@@ -30,20 +31,44 @@ const NavBar = () => {
 						Rentals
 					</NavLink>
 				</li>
-				<li className='nav-item'>
-					<NavLink
-						className={({ isActive }) => linkStyle(isActive)}
-						to='/login'>
-						Login
-					</NavLink>
-				</li>
-				<li className='nav-item'>
-					<NavLink
-						className={({ isActive }) => linkStyle(isActive)}
-						to='/register'>
-						Register
-					</NavLink>
-				</li>
+				{!user && (
+					<React.Fragment>
+						{' '}
+						<li className='nav-item'>
+							<NavLink
+								className={({ isActive }) => linkStyle(isActive)}
+								to='/login'>
+								Login
+							</NavLink>
+						</li>
+						<li className='nav-item'>
+							<NavLink
+								className={({ isActive }) => linkStyle(isActive)}
+								to='/register'>
+								Register
+							</NavLink>
+						</li>
+					</React.Fragment>
+				)}
+				{user && (
+					<React.Fragment>
+						{' '}
+						<li className='nav-item'>
+							<NavLink
+								className={({ isActive }) => linkStyle(isActive)}
+								to='/account'>
+								Account
+							</NavLink>
+						</li>
+						<li className='nav-item'>
+							<NavLink
+								className={({ isActive }) => linkStyle(isActive)}
+								to='/logout'>
+								Logout
+							</NavLink>
+						</li>
+					</React.Fragment>
+				)}
 			</ul>
 		</nav>
 	)

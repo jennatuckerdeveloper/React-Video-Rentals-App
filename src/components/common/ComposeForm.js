@@ -10,6 +10,12 @@ class ComposeForm extends React.Component {
 		errors: {}
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.errors !== this.state.errors) {
+			this.setState({ errors: nextProps.errors })
+		}
+	}
+
 	validate = () => {
 		const joiOptions = { abortEarly: false }
 		const { error } = Joi.validate(

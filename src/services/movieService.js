@@ -1,12 +1,12 @@
-import devUrls from '../config/urls'
+import { apiUrl } from '../config/urls'
 import { http } from './httpService'
 
-const { movieUrl } = devUrls
+const apiEndpoint = `${apiUrl}/movies`
 
-const getMovieUrl = (id) => `${movieUrl}/${id}`
+const getMovieUrl = (id) => `${apiEndpoint}/${id}`
 
 export const getMovies = async () => {
-	const { data } = await http.get(movieUrl)
+	const { data } = await http.get(apiEndpoint)
 	return data
 }
 
@@ -17,7 +17,7 @@ export const getMovie = async (movieId) => {
 
 export const saveMovie = async (movie) => {
 	if (!movie._id) {
-		const { data } = await http.post(movieUrl, movie)
+		const { data } = await http.post(apiEndpoint, movie)
 		return data
 	} else {
 		const movieData = { ...movie }

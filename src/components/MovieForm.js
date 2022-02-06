@@ -7,7 +7,6 @@ import Joi from 'joi-browser'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getGenres } from '../services/genreService'
 import { getMovie, saveMovie } from '../services/movieService'
-import { consoleSandbox } from '@sentry/utils'
 
 export default function MovieForm() {
 	const [formData, changeFormData] = useState({
@@ -46,6 +45,7 @@ export default function MovieForm() {
 			if (cancel) return
 			return setGenres(genres)
 		}
+
 		if (!params.id) return
 		fetchMovie()
 		fetchGenres()
@@ -98,7 +98,8 @@ export default function MovieForm() {
 			submitButtonLabel={'Save'}
 			formData={formData}
 			schema={schema}
-			updateFormData={updateFormData}>
+			updateFormData={updateFormData}
+			errors={{}}>
 			<h1>Movie Form {params.id}</h1>
 			<FormInput type='text' name='title' label='Title' />
 			<FormSelect name='genreId' label='Genre' options={genres} />

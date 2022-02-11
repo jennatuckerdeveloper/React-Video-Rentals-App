@@ -19,6 +19,7 @@ export default class Movies extends Component {
 		selectedSort: { column: '', order: '' },
 		searchString: ''
 	}
+
 	componentDidMount = async () => {
 		try {
 			await this.fetchMovies()

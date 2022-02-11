@@ -1,6 +1,6 @@
 import React from 'react'
 import FormInput from './common/FormInput'
-import ComposeForm from './common/ComposeForm'
+import ComposeForm from './common/FunctionalComposeForm'
 import Joi from 'joi-browser'
 import auth from '../services/authService'
 

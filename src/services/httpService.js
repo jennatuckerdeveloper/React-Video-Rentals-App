@@ -2,7 +2,6 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import logger from './logService'
-import jwtDecode, { jwt_decode } from 'jwt-decode'
 
 // Add a response interceptor
 axios.interceptors.response.use(

@@ -50,7 +50,7 @@ export default function MovieForm() {
 		fetchMovie()
 		fetchGenres()
 		return cancelLer
-	}, [])
+	})
 
 	const loadMovie = (movie) => {
 		changeFormData({

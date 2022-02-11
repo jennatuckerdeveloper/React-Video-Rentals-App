@@ -1,40 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FormInput from './common/FormInput'
 import ComposeForm from './common/ComposeForm'
 import Joi from 'joi-browser'
+import auth from '../services/authService'
 
-class LoginForm extends React.Component {
-	state = {
-		formData: { username: '', password: '' }
+const LoginForm = () => {
+	const [formData, setFormData] = useState({ username: '', password: '' })
+	const [errors, setErrors] = useState({})
+
+	const schema = {
+		username: Joi.string().required().label('Username'),
+		password: Joi.string().required().min(5).label('Password')
 	}
 
-	schema = {
-		username: Joi.string().alphanum().min(3).required().label('Username'),
-		password: Joi.string().required().min(3).label('Password')
+	const doSubmit = async () => {
+		try {
+			await auth.login(formData.username, formData.password)
+			window.location = '/'
+		} catch (err) {
+			if (
+				err.response &&
+				err.response.status >= 400 &&
+				err.response.status < 500
+			) {
+				const newErrors = { ...errors, username: err.response.data }
+				setErrors(newErrors)
+			}
+		}
 	}
 
-	doSubmit = () => {
-		console.log('SUBMIT')
+	const updateFormData = (newData) => {
+		setFormData(newData)
 	}
 
-	updateFormData = (newData) => {
-		this.setState({ formData: newData })
-	}
-
-	render() {
-		const { formData } = this.state
-		return (
-			<ComposeForm
-				doSubmit={this.doSubmit}
-				submitButtonLabel={'Login'}
-				formData={formData}
-				schema={this.schema}
-				updateFormData={this.updateFormData}>
-				<FormInput type='text' name='username' label='Username' />
-				<FormInput type='password' name='password' label='Password' />
-			</ComposeForm>
-		)
-	}
+	return (
+		<ComposeForm
+			doSubmit={doSubmit}
+			submitButtonLabel={'Login'}
+			formData={formData}
+			schema={schema}
+			updateFormData={updateFormData}
+			errors={errors}>
+			<FormInput type='text' name='username' label='Username' />
+			<FormInput type='password' name='password' label='Password' />
+		</ComposeForm>
+	)
 }
 
 export default LoginForm

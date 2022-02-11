@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FormInput from './common/FormInput'
 import ComposeForm from './common/ComposeForm'
 import Joi from 'joi-browser'
 import { newUser } from '../services/userService'
 import auth from '../services/authService'
 
-class RegisterForm extends React.Component {
-	state = {
-		formData: { email: '', password: '', name: '' },
-		errors: {}
-	}
+const RegisterForm = () => {
+	const [formData, setFormData] = useState({
+		email: '',
+		password: '',
+		name: ''
+	})
+	const [errors, setErrors] = useState({})
 
-	schema = {
+	const schema = {
 		email: Joi.string()
 			.email({
 				minDomainSegments: 2,
@@ -22,9 +24,8 @@ class RegisterForm extends React.Component {
 		name: Joi.string().alphanum().required().label('Name')
 	}
 
-	doSubmit = async () => {
+	const doSubmit = async () => {
 		try {
-			const { formData } = this.state
 			const res = await newUser(formData)
 			const jwt = res.headers['x-auth-token']
 			auth.loginWithJwt(jwt)
@@ -35,32 +36,29 @@ class RegisterForm extends React.Component {
 				err.response.status >= 400 &&
 				err.response.status < 500
 			) {
-				const errors = { ...this.state.errors, email: err.response.data }
-				this.setState({ errors })
+				const newErrors = { ...errors, email: err.response.data }
+				setErrors(newErrors)
 			}
 		}
 	}
 
-	updateFormData = (newData) => {
-		this.setState({ formData: newData })
+	const updateFormData = (newData) => {
+		setFormData(newData)
 	}
 
-	render() {
-		const { formData, errors } = this.state
-		return (
-			<ComposeForm
-				doSubmit={this.doSubmit}
-				submitButtonLabel={'Register'}
-				formData={formData}
-				schema={this.schema}
-				updateFormData={this.updateFormData}
-				errors={errors}>
-				<FormInput type='text' name='email' label='Email' />
-				<FormInput type='password' name='password' label='Password' />
-				<FormInput type='text' name='name' label='Name' />
-			</ComposeForm>
-		)
-	}
+	return (
+		<ComposeForm
+			doSubmit={doSubmit}
+			submitButtonLabel={'Register'}
+			formData={formData}
+			schema={schema}
+			updateFormData={updateFormData}
+			errors={errors}>
+			<FormInput type='text' name='email' label='Email' />
+			<FormInput type='password' name='password' label='Password' />
+			<FormInput type='text' name='name' label='Name' />
+		</ComposeForm>
+	)
 }
 
 export default RegisterForm

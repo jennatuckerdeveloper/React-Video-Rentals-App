@@ -18,7 +18,7 @@ export default function MovieForm() {
 
 	const [genres, setGenres] = useState([])
 
-	const params = useParams()
+	const { movieId } = useParams()
 	const navigate = useNavigate()
 
 	useEffect(() => {
@@ -27,9 +27,9 @@ export default function MovieForm() {
 			cancel = true
 		}
 
-		async function fetchMovie(id) {
+		async function fetchMovie(movieId) {
 			try {
-				const movie = await getMovie(params.id)
+				const movie = await getMovie(movieId)
 				if (cancel) return
 				loadMovie(movie)
 			} catch (ex) {
@@ -46,11 +46,11 @@ export default function MovieForm() {
 			return setGenres(genres)
 		}
 
-		if (!params.id) return
-		fetchMovie()
+		if (!movieId) return
+		fetchMovie(movieId)
 		fetchGenres()
 		return cancelLer
-	})
+	}, [movieId, navigate])
 
 	const loadMovie = (movie) => {
 		changeFormData({
@@ -100,7 +100,7 @@ export default function MovieForm() {
 			schema={schema}
 			updateFormData={updateFormData}
 			errors={{}}>
-			<h1>Movie Form {params.id}</h1>
+			<h1>Movie Form {movieId}</h1>
 			<FormInput type='text' name='title' label='Title' />
 			<FormSelect name='genreId' label='Genre' options={genres} />
 			<FormInput type='text' name='numberInStock' label='In Stock' />

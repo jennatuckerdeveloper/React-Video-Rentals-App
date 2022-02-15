@@ -101,7 +101,26 @@ const Movies = ({ user, navigate }) => {
 
 	const { genreMoviesCount, moviesToShow } = getPagedData()
 
-	if (movies.length === 0) return <p>There are no movies to display.</p>
+	const renderNewMovie = () => {
+		if (auth.user && auth.user.isAdmin)
+			return (
+				<button
+					type='button'
+					className='btn btn-primary mb-4'
+					onClick={() => navigate('movies/new', { replace: true })}>
+					New Movie
+				</button>
+			)
+	}
+
+	if (movies.length === 0)
+		return (
+			<div>
+				<p> There are no movies to display.</p>
+				{renderNewMovie()}
+			</div>
+		)
+
 	return (
 		<div className='row'>
 			<div className='col-3'>
@@ -111,17 +130,8 @@ const Movies = ({ user, navigate }) => {
 					onItemSelect={handleGenreSelect}
 				/>
 			</div>
-
 			<div className='col mt-3'>
-				{auth.user && auth.user.isAdmin && (
-					<button
-						type='button'
-						className='btn btn-primary mb-4'
-						onClick={() => navigate('movies/new', { replace: true })}>
-						New Movie
-					</button>
-				)}
-
+				{renderNewMovie()}
 				<p>There are {genreMoviesCount} movies in the database.</p>
 				<FormInput
 					type={'text'}

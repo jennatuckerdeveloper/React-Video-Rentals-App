@@ -1,7 +1,6 @@
-import { apiUrl } from '../config/urls'
 import { http } from './httpService'
 
-const apiEndpoint = `${apiUrl}/movies`
+const apiEndpoint = `/movies`
 
 const getMovieUrl = (id) => `${apiEndpoint}/${id}`
 

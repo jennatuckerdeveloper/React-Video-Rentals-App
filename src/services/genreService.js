@@ -1,7 +1,6 @@
-import { apiUrl } from '../config/urls'
 import { http } from './httpService'
 
-const apiEndpoint = `${apiUrl}/genres`
+const apiEndpoint = `/genres`
 
 export const getGenres = async () => {
 	const { data } = await http.get(apiEndpoint)

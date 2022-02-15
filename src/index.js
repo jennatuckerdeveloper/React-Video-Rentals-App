@@ -5,9 +5,9 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import 'bootstrap-css-only'
 import { BrowserRouter } from 'react-router-dom'
-// import logger from './services/logService'
+import logger from './services/logService'
 
-// logger.init()
+logger.init()
 
 ReactDOM.render(
 	<React.StrictMode>

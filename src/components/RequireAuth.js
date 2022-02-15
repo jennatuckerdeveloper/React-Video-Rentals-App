@@ -5,7 +5,6 @@ import { useAuth } from '../hooks/useAuth'
 function RequireAuth({ children }) {
 	let auth = useAuth()
 	let location = useLocation()
-	console.log('auth', auth)
 
 	if (!auth.user) {
 		// Redirect them to the /login page, but save the current location they were

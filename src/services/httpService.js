@@ -3,6 +3,8 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import logger from './logService'
 
+axios.defaults.baseURL = process.env.REACT_APP_API_URL
+
 // Add a response interceptor
 axios.interceptors.response.use(
 	function (response) {

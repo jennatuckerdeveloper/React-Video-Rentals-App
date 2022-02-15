@@ -13,7 +13,6 @@ const LoginForm = () => {
 	let navigate = useNavigate()
 	let location = useLocation()
 	let auth = useAuth()
-	console.log('AUTH', auth)
 	let from = location.state?.from?.pathname || '/'
 
 	const schema = {
@@ -23,28 +22,21 @@ const LoginForm = () => {
 
 	const doSubmit = async () => {
 		const { username: email, password } = formData
-		auth.login({ email, password }, () => {
-			// Send them back to the page they tried to visit when they were
-			// redirected to the login page. Use { replace: true } so we don't create
-			// another entry in the history stack for the login page.  This means that
-			// when they get to the protected page and click the back button, they
-			// won't end up back on the login page, which is also really nice for the
-			// user experience.
-			navigate(from, { replace: true })
-		})
-		// try {
-		// 	await auth.login(formData.username, formData.password)
-		// 	window.location = '/'
-		// } catch (err) {
-		// 	if (
-		// 		err.response &&
-		// 		err.response.status >= 400 &&
-		// 		err.response.status < 500
-		// 	) {
-		// 		const newErrors = { ...errors, username: err.response.data }
-		// 		setErrors(newErrors)
-		// 	}
-		// }
+
+		try {
+			await auth.login({ email, password }, () => {
+				navigate(from, { replace: true })
+			})
+		} catch (err) {
+			if (
+				err.response &&
+				err.response.status >= 400 &&
+				err.response.status < 500
+			) {
+				const newErrors = { ...errors, username: err.response.data }
+				setErrors(newErrors)
+			}
+		}
 	}
 
 	const updateFormData = (newData) => {
@@ -53,7 +45,6 @@ const LoginForm = () => {
 
 	return (
 		<React.Fragment>
-			{/* <p>You must log in to view the page at {from}</p> */}
 			<ComposeForm
 				doSubmit={doSubmit}
 				submitButtonLabel={'Login'}

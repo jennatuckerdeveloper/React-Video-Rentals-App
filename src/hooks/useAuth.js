@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
 
 	let login = (loginData, callback) => {
 		return auth.login(loginData, () => {
-			setUser(loginData)
+			setUser(auth.getCurrentUser())
 			callback()
 		})
 	}

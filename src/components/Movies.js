@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import MoviesTable from './MoviesTable'
 import Pagination from './common/Pagination'
 import ListGroup from './common/ListGroup'
 import FormInput from './common/FormInput'
+import { useAuth } from '../hooks/useAuth'
 import { paginate } from '../utils/paginate'
 import { deleteMovie, getMovies } from '../services/movieService'
 import { getGenres } from '../services/genreService'
 import _ from 'lodash'
-import { Outlet } from 'react-router-dom'
 
 const Movies = ({ user, navigate }) => {
 	const [movies, setMovies] = useState([])
@@ -17,6 +17,8 @@ const Movies = ({ user, navigate }) => {
 	const [selectedGenre, setSelectedGenre] = useState({})
 	const [selectedSort, setSelectedSort] = useState({ column: '', order: '' })
 	const [searchString, setSearchString] = useState('')
+
+	let auth = useAuth()
 
 	useEffect(() => {
 		try {
@@ -102,7 +104,6 @@ const Movies = ({ user, navigate }) => {
 	if (movies.length === 0) return <p>There are no movies to display.</p>
 	return (
 		<div className='row'>
-			<Outlet />
 			<div className='col-3'>
 				<ListGroup
 					items={genres}
@@ -112,7 +113,7 @@ const Movies = ({ user, navigate }) => {
 			</div>
 
 			<div className='col mt-3'>
-				{user && user.isAdmin && (
+				{auth.user && auth.user.isAdmin && (
 					<button
 						type='button'
 						className='btn btn-primary mb-4'

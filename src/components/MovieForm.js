@@ -45,10 +45,9 @@ export default function MovieForm() {
 			if (cancel) return
 			return setGenres(genres)
 		}
-
+		fetchGenres()
 		if (!movieId) return
 		fetchMovie(movieId)
-		fetchGenres()
 		return cancelLer
 	}, [movieId, navigate])
 
@@ -64,7 +63,7 @@ export default function MovieForm() {
 
 	const schema = {
 		_id: Joi.string(),
-		title: Joi.string().required().label('Title'),
+		title: Joi.string().required().min(5).label('Title'),
 		genreId: Joi.string().required().min(3).label('Genre'),
 		numberInStock: Joi.number()
 			.integer()

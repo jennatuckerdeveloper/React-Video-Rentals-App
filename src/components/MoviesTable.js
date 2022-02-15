@@ -2,18 +2,27 @@ import Table from './common/Table'
 import DeleteButton from './DeleteButton'
 import Like from './common/Like'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 
 const MoviesTable = ({ movies, onSort, selectedSort, deleteMovie }) => {
+	let auth = useAuth()
 	const columns = [
 		{
 			value: 'title',
 			label: 'Title',
-			content: (movie) => <Link to={movie._id}>{movie.title}</Link>
+			content: (movie) =>
+				auth.user && auth.user.isAdmin ? (
+					<Link to={movie._id}>{movie.title}</Link>
+				) : (
+					<span>{movie.title}</span>
+				)
 		},
 		{ value: 'genre.name', label: 'Genre' },
 		{ value: 'numberInStock', label: 'Stock' },
 		{ value: 'dailyRentalRate', label: 'Rate' },
-		{ key: 'like', content: () => <Like /> },
+		{ key: 'like', content: () => <Like /> }
+	]
+	const authOnlyColumns = [
 		{
 			key: 'delete',
 			content: (movie) => (
@@ -28,7 +37,11 @@ const MoviesTable = ({ movies, onSort, selectedSort, deleteMovie }) => {
 	return (
 		<Table
 			data={movies}
-			columns={columns}
+			columns={
+				auth.user && auth.user.isAdmin
+					? columns.concat(authOnlyColumns)
+					: columns
+			}
 			selectedSort={selectedSort}
 			onSort={onSort}
 		/>

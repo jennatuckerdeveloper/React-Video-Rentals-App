@@ -1,10 +1,10 @@
-import * as React from 'react'
+import { useState, createContext, useContext } from 'react'
 import auth from '../services/authService'
 
-let AuthContext = React.createContext(null)
+let AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
-	let [user, setUser] = React.useState(null)
+	let [user, setUser] = useState(auth.getCurrentUser())
 
 	let login = (loginData, callback) => {
 		return auth.login(loginData, () => {
@@ -29,5 +29,5 @@ export function AuthProvider({ children }) {
 
 // Using the context created above
 export function useAuth() {
-	return React.useContext(AuthContext)
+	return useContext(AuthContext)
 }

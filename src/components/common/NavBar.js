@@ -1,7 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../../hooks/useAuth'
 
-const NavBar = ({ user }) => {
+const NavBar = () => {
+	let auth = useAuth()
+
 	const linkStyle = (active) =>
 		active ? 'nav-link text-dark font-weight-bold' : 'nav-link text-dark'
 	return (
@@ -31,7 +34,7 @@ const NavBar = ({ user }) => {
 						Rentals
 					</NavLink>
 				</li>
-				{!user && (
+				{!auth.user && (
 					<React.Fragment>
 						{' '}
 						<li className='nav-item'>
@@ -50,7 +53,7 @@ const NavBar = ({ user }) => {
 						</li>
 					</React.Fragment>
 				)}
-				{user && (
+				{auth.user && (
 					<React.Fragment>
 						{' '}
 						<li className='nav-item'>

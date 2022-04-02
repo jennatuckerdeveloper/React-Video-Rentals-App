@@ -13,6 +13,13 @@ export function AuthProvider({ children }) {
 		})
 	}
 
+	let register = (jwt, callback) => {
+		return auth.loginWithJwt(jwt, () => {
+			setUser(auth.getCurrentUser())
+			callback()
+		})
+	}
+
 	let signout = (callback) => {
 		return auth.signout(() => {
 			setUser(null)
@@ -21,7 +28,7 @@ export function AuthProvider({ children }) {
 	}
 
 	// Why would you call these value and not make those each props?
-	let value = { user, login, signout }
+	let value = { user, login, signout, register }
 
 	// This is where you create a Provider React component for the Context object
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

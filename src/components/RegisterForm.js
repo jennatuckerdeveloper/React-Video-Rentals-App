@@ -4,6 +4,8 @@ import ComposeForm from './common/ComposeForm'
 import Joi from 'joi-browser'
 import { newUser } from '../services/userService'
 import auth from '../services/authService'
+import { useAuth } from '../hooks/useAuth'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const RegisterForm = () => {
 	const [formData, setFormData] = useState({
@@ -12,6 +14,11 @@ const RegisterForm = () => {
 		name: ''
 	})
 	const [errors, setErrors] = useState({})
+
+	let navigate = useNavigate()
+	let location = useLocation()
+	let auth = useAuth()
+	let from = location.state?.from?.pathname || '/'
 
 	const schema = {
 		email: Joi.string()
@@ -28,8 +35,9 @@ const RegisterForm = () => {
 		try {
 			const res = await newUser(formData)
 			const jwt = res.headers['x-auth-token']
-			auth.loginWithJwt(jwt)
-			window.location = '/'
+			await auth.register(jwt, () => {
+				navigate(from, { replace: true })
+			})
 		} catch (err) {
 			if (
 				err.response &&

@@ -11,8 +11,9 @@ const login = async ({ email, password }, callback) => {
 	http.setJwt(getJwt())
 }
 
-const loginWithJwt = (jwt) => {
+const loginWithJwt = (jwt, callback) => {
 	localStorage.setItem(tokenKey, jwt)
+	callback()
 	http.setJwt(getJwt())
 }
 

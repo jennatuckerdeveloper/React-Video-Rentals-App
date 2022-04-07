@@ -1,70 +1,126 @@
-# Getting Started with Create React App
+# React Video Rental App Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application was built by Jenna Tucker as a learning/practice exercise in fullstack JavaScript. [The app is currently deployed on Heroku](https://gentle-ravine-70551.herokuapp.com/).
 
-## Available Scripts
+This frontend app is based on [Mosh Hamedani's React course](https://codewithmosh.com/p/mastering-react), though this version has many distinctions.
 
-In the project directory, you can run:
+Some key changes to this version include:
 
-### `npm start`
+- Use of function components rather than class components for stateful components.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The focus in this application was to:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Use modern JavaScript features and libraries
+- Use contemporary React features and best practices to build the UI
+- Establish a maintainable, clean code base
+- Create a useful layer of abstraction for common UI components
+- Keep learning practices as close to real-world development work as possible
 
-### `npm test`
+This version of the application does not focus on or include:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Mobile first design, responsive design for mobile
 
-### `npm run build`
+The [backend Node/Express application](https://github.com/jennatuckerdeveloper/Node-Vidly-Backend/blob/main/README.md) can also be viewed on GitHub.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Application Context Overview
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The mock context for this application was a video rental shop.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Two distinct user groups would be using the website.
 
-### `npm run eject`
+1. Employees wanting to assist customers in renting and returning movies.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Managers wanting to manage inventory and customer profiles.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Context to Concept Mapping Auth And Admin
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The app meets an early set of necessary functionality. Based on the assumption that future features would likely be added, the following conceptual points would be useful for developers:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Regular employees can register as users and sign in to gain authenticated status.
 
-## Learn More
+2. Managers must have both registered / logged in auth status and further authorization status. This change gets made when someone with database access adds `isAdmin: true` to the employee's user document.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Key Features By Auth & Admin Status
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This frontend application reflects the following levels of access, which are enforced by the Node/Express backend application.
 
-### Code Splitting
+### 1. No Auth & No Admin status
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+A site visitor who has not registered / logged in can:
 
-### Analyzing the Bundle Size
+- See genres
+- See movies
+- Register as a user
+- Login as a user
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 2. Auth & No Admin status
 
-### Making a Progressive Web App
+A logged in user who is not admin can also:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Logout and return to not logged in UI state
+- See all customers
+- See all rentals
+- Search rentals
+- Create new rentals
+- Check in rentals
 
-### Advanced Configuration
+Future features might include:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- See their own account information
+- Like and unlike movies (manage their own favorites list
+- Change their account information, includes reset pw workflow
 
-### Deployment
+### 3. Auth & Admin status
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+A logged in user who is an admin can:
 
-### `npm run build` fails to minify
+- Add / update genres
+- Add / update / delete movies
+- Add / update / delete customers
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Future features might include:
+
+- Allow managers to grant access for users to register, so general site can be public.
+
+## Local development
+
+To run this app in a local development environment:
+
+- Check that a recent version of Node is installed.
+- Clone the GitHub repo.
+- Run `npm install` at the level of the `package.json` file to install dependencies.
+- Run `npm start`.
+- The `.env.development` file should include: `REACT_APP_API_URL=https://afternoon-refuge-89448.herokuapp.com/api` to point to the [Node/Express backend deployed on Heroku](https://github.com/jennatuckerdeveloper/Node-Vidly-Backend/blob/main/README.md).
+
+## Local development with local, development backend Node application
+
+### For the frontend:
+
+- Check that a recent version of Node is installed.
+- Clone the GitHub repo.
+- Run `npm install` at the level of the `package.json` file to install dependencies.
+- Run `npm start`.
+- The `.env.development` file should include: `REACT_APP_API_URL=http://localhost:3900/api`.
+
+### For the backend:
+
+- Clone the [GitHub repo](https://github.com/jennatuckerdeveloper/Node-Vidly-Backend).
+- Run `npm install`.
+- Set an environment variable `vidly_db` to a MongoDB database in MongoDB Atlas or on local.
+- Run with `node index.js` or `nodemon index.js` with global `nodemon` install.
+
+### Important Note:
+
+The backend application uses `mongoose` for `MongoDB` transactions, which require a replica set. The easiest way to get this set up for dev is to use [Mongo DB Atlas](https://www.mongodb.com/atlas/database) free tier, but good instructions for setting up a replica set on a local machine can be found online.
+
+## Developer Contact Info
+
+You are welcome to contact me regarding:
+
+- Jobs
+- Alternative learning and self-learning to code
+- Women and LGBTQ+ folks in tech
+
+LinkedIn: https://www.linkedin.com/in/jenna-tucker/
+
+Gmail: jennatuckerdeveloper[at]gmail.com

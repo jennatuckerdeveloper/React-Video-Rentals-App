@@ -3,7 +3,6 @@ import FormInput from './common/FormInput'
 import ComposeForm from './common/ComposeForm'
 import Joi from 'joi-browser'
 import { newUser } from '../services/userService'
-import auth from '../services/authService'
 import { useAuth } from '../hooks/useAuth'
 import { useNavigate, useLocation } from 'react-router-dom'
 

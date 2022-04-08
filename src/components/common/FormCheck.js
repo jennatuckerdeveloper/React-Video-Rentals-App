@@ -11,6 +11,7 @@ const FormCheck = ({ name, label, value, error, onChange }) => {
 					id={name}
 					value={value}
 					onChange={onChange}
+					checked={value}
 				/>
 				<label className='form-check-label' htmlFor='flexCheckChecked'>
 					{label}

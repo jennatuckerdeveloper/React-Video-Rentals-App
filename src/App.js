@@ -5,6 +5,7 @@ import Customers from './components/Customers'
 import Rentals from './components/Rentals'
 import NotFound from './components/NotFound'
 import MovieForm from './components/MovieForm'
+import CustomerForm from './components/CustomerForm'
 import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import Logout from './components/Logout'
@@ -37,7 +38,19 @@ const App = () => {
 							}
 						/>
 						<Route path='movies/:movieId' element={<MovieForm />} />
-						<Route path='customers' element={<Customers />} />
+						<Route
+							path='customers'
+							element={<Customers navigate={navigate} />}
+						/>
+						<Route
+							path='customers/new'
+							element={
+								<RequireAuth>
+									<CustomerForm />
+								</RequireAuth>
+							}
+						/>
+						<Route path='customers/:customerId' element={<CustomerForm />} />
 						<Route path='rentals' element={<Rentals />} />
 						<Route path='/' element={<Navigate to='/movies' />} />
 						<Route path='not-found' element={<NotFound />} />

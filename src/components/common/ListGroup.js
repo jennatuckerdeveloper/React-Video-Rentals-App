@@ -1,3 +1,4 @@
+import _ from 'lodash'
 const ListGroup = ({
 	items,
 	selectedItem,
@@ -14,7 +15,7 @@ const ListGroup = ({
 						item === selectedItem ? 'list-group-item active' : 'list-group-item'
 					}
 					onClick={() => onItemSelect(item)}>
-					{item[textProperty]}
+					{_.startCase(_.toLower(item[textProperty]))}
 				</li>
 			))}
 		</ul>

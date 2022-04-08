@@ -9,7 +9,7 @@ import { deleteMovie, getMovies } from '../services/movieService'
 import { getGenres } from '../services/genreService'
 import _ from 'lodash'
 
-const Movies = ({ user, navigate }) => {
+const Movies = ({ navigate }) => {
 	const [movies, setMovies] = useState([])
 	const [genres, setGenres] = useState([])
 	const [pageSize] = useState(5)

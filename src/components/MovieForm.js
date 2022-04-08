@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import FormInput from './common/FormInput'
-import FormSelect from './FormSelect'
+import FormSelect from './common/FormSelect'
 import ComposeForm from './common/ComposeForm'
 import Joi from 'joi-browser'
 import { useParams, useNavigate } from 'react-router-dom'

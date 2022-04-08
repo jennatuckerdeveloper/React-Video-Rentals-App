@@ -10,7 +10,7 @@ const NavBar = () => {
 	return (
 		<nav className='navbar navbar-light bg-light mb-4'>
 			<NavLink className='navbar-brand' to='/movies'>
-				Navbar
+				Vidly
 			</NavLink>
 			<ul className='nav mr-auto'>
 				<li className='nav-item'>

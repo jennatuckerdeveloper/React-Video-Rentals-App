@@ -51,7 +51,11 @@ const ComposeForm = ({
 		else delete newErrors[input.name]
 
 		const newFormData = { ...formData }
-		newFormData[input.id] = input.value
+		if (input.type === 'checkbox') {
+			newFormData[input.id] = input.checked
+		} else {
+			newFormData[input.id] = input.value
+		}
 		updateFormData(newFormData)
 		setErrors(newErrors)
 	}

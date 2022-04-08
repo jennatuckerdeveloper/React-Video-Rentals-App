@@ -19,8 +19,8 @@ const MoviesTable = ({ movies, onSort, selectedSort, deleteMovie }) => {
 		},
 		{ value: 'genre.name', label: 'Genre' },
 		{ value: 'numberInStock', label: 'Stock' },
-		{ value: 'dailyRentalRate', label: 'Rate' },
-		{ key: 'like', content: () => <Like /> }
+		{ value: 'dailyRentalRate', label: 'Rate' }
+		// { key: 'like', content: () => <Like /> }
 	]
 	const authOnlyColumns = [
 		{

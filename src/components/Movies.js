@@ -4,10 +4,10 @@ import Pagination from './common/Pagination'
 import ListGroup from './common/ListGroup'
 import FormInput from './common/FormInput'
 import { useAuth } from '../hooks/useAuth'
-import { paginate } from '../utils/paginate'
+import { filterDataByInput } from '../utils/filterDataByInput'
+import { pagedData } from '../utils/pagedData'
 import { deleteMovie, getMovies } from '../services/movieService'
 import { getGenres } from '../services/genreService'
-import _ from 'lodash'
 
 const Movies = ({ navigate }) => {
 	const [movies, setMovies] = useState([])
@@ -63,43 +63,24 @@ const Movies = ({ navigate }) => {
 		}
 	}
 
-	const getPagedData = () => {
-		const allMovies = movies
-		let filteredMovies = allMovies
-
-		if (searchString) {
-			filteredMovies = allMovies.filter((movie) => {
-				return movie.title.toLowerCase().startsWith(searchString.toLowerCase())
-			})
-		} else if (selectedGenre && selectedGenre._id) {
-			filteredMovies = allMovies.filter(
-				(movie) => movie.genre.name === selectedGenre.name
-			)
-		}
-
-		filteredMovies.sort((a, b) => {
-			let key = selectedSort.column
-			const aSelector = _.get(a, key)
-			const bSelector = _.get(b, key)
-			const compareStatement =
-				selectedSort.order === 'asc'
-					? aSelector < bSelector
-					: aSelector > bSelector
-
-			return compareStatement ? -1 : 1
-		})
-
-		const moviesToShow = paginate(filteredMovies, currentPage, pageSize)
-		return { genreMoviesCount: filteredMovies.length, moviesToShow }
-	}
-
 	const handleMovieSearch = (e) => {
 		setSearchString(e.currentTarget.value)
 		setSelectedGenre({})
 		setCurrentPage(1)
 	}
 
-	const { genreMoviesCount, moviesToShow } = getPagedData()
+	const filterMoviesByGenreSelect = (genre) => (movies) => {
+		if (genre && genre._id) {
+			return movies.filter((movie) => movie.genre.name === genre.name)
+		}
+		return movies
+	}
+
+	const { filteredDataLength: genreMoviesCount, visibleData: moviesToShow } =
+		pagedData(movies, currentPage, pageSize, selectedSort, [
+			filterDataByInput(searchString, 'title'),
+			filterMoviesByGenreSelect(selectedGenre)
+		])
 
 	return (
 		<div className='row'>

@@ -3,7 +3,8 @@ import CustomersTable from './CustomersTable'
 import Pagination from './common/Pagination'
 import FormInput from './common/FormInput'
 import { useAuth } from '../hooks/useAuth'
-import { paginate } from '../utils/paginate'
+import { pagedData } from '../utils/pagedData'
+import { filterDataByInput } from '../utils/filterDataByInput'
 import { getCustomers, deleteCustomer } from '../services/customerService'
 import _ from 'lodash'
 
@@ -41,34 +42,6 @@ const Customers = ({ navigate }) => {
 		}
 	}
 
-	const getPagedData = () => {
-		const allCustomers = customers
-		let filteredCustomers = allCustomers
-
-		if (searchString) {
-			filteredCustomers = allCustomers.filter((customer) => {
-				return customer.name
-					.toLowerCase()
-					.startsWith(searchString.toLowerCase())
-			})
-		}
-
-		filteredCustomers.sort((a, b) => {
-			let key = selectedSort.column
-			const aSelector = _.get(a, key)
-			const bSelector = _.get(b, key)
-			const compareStatement =
-				selectedSort.order === 'asc'
-					? aSelector < bSelector
-					: aSelector > bSelector
-
-			return compareStatement ? -1 : 1
-		})
-
-		const CustomersToShow = paginate(filteredCustomers, currentPage, pageSize)
-		return { customersCount: filteredCustomers.length, CustomersToShow }
-	}
-
 	const handleCustomerSearch = (e) => {
 		setSearchString(e.currentTarget.value)
 		setCurrentPage(1)
@@ -79,7 +52,10 @@ const Customers = ({ navigate }) => {
 		fetchCustomers()
 	}
 
-	const { customersCount, CustomersToShow } = getPagedData()
+	const { filteredDataLength: customersCount, visibleData: customersToShow } =
+		pagedData(customers, currentPage, pageSize, selectedSort, [
+			filterDataByInput(searchString, 'name')
+		])
 
 	return (
 		<div className='row'>
@@ -102,7 +78,7 @@ const Customers = ({ navigate }) => {
 					onChange={handleCustomerSearch}
 				/>
 				<CustomersTable
-					Customers={CustomersToShow}
+					Customers={customersToShow}
 					deleteCustomer={onDeleteCustomer}
 					onSort={handleSort}
 					selectedSort={selectedSort}

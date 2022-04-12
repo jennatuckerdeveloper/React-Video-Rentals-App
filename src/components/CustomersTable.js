@@ -1,8 +1,10 @@
 import Table from './common/Table'
+import ActionButton from './ActionButton'
 import DeleteButton from './DeleteButton'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import GoldMemberIcon from './GoldMemberIcon'
+import { useNavigate } from 'react-router-dom'
 
 const CustomersTable = ({
 	Customers,
@@ -11,6 +13,7 @@ const CustomersTable = ({
 	deleteCustomer
 }) => {
 	let auth = useAuth()
+	const navigate = useNavigate()
 	const columns = [
 		{
 			value: 'name',
@@ -33,6 +36,17 @@ const CustomersTable = ({
 		}
 	]
 	const authOnlyColumns = [
+		{
+			key: 'update',
+			content: (customer) => (
+				<ActionButton
+					label={'Update'}
+					onClick={() => {
+						navigate(`/customers/${customer._id}`)
+					}}
+				/>
+			)
+		},
 		{
 			key: 'delete',
 			content: (customer) => (

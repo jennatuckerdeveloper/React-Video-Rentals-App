@@ -101,7 +101,12 @@ export default function MovieForm() {
 			errors={{}}>
 			<h1>Movie Form {movieId}</h1>
 			<FormInput type='text' name='title' label='Title' />
-			<FormSelect name='genreId' label='Genre' options={genres} />
+			<FormSelect
+				name='genreId'
+				label='Genre'
+				options={genres}
+				dataKey={'name'}
+			/>
 			<FormInput type='text' name='numberInStock' label='In Stock' />
 			<FormInput type='text' name='dailyRentalRate' label='Daily Rate' />
 		</ComposeForm>

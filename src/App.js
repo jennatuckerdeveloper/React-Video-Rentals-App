@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBar from './components/common/NavBar'
+import Account from './components/Account'
 import Movies from './components/Movies'
 import Customers from './components/Customers'
 import Rentals from './components/Rentals'
@@ -29,6 +30,7 @@ const App = () => {
 						<Route path='register' element={<RegisterForm />} />
 						<Route path='login' element={<LoginForm />} />
 						<Route path='logout' element={<Logout />} />
+						<Route path='account' element={<Account />} />
 						<Route path='movies' element={<Movies navigate={navigate} />} />
 						<Route
 							path='movies/new'

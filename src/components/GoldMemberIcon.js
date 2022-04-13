@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
-import { faCrown as Crown } from '@fortawesome/free-regular-svg-icons'
 
 const GoldMemberIcon = () => {
 	return (

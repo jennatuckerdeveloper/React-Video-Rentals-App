@@ -14,7 +14,10 @@ const Rentals = ({ navigate }) => {
 	const [rentals, setRentals] = useState([])
 	const [pageSize] = useState(5)
 	const [currentPage, setCurrentPage] = useState(1)
-	const [selectedSort, setSelectedSort] = useState({ column: '', order: '' })
+	const [selectedSort, setSelectedSort] = useState({
+		column: 'dateOut',
+		order: 'desc'
+	})
 	const [searchString, setSearchString] = useState('')
 
 	let auth = useAuth()

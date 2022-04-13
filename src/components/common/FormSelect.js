@@ -1,4 +1,12 @@
-const FormSelect = ({ name, label, options, error, value, onChange }) => {
+const FormSelect = ({
+	name,
+	label,
+	options,
+	error,
+	value,
+	onChange,
+	dataKey
+}) => {
 	return (
 		<div className='form-group'>
 			<label htmlFor={name}>{label}</label>
@@ -11,7 +19,7 @@ const FormSelect = ({ name, label, options, error, value, onChange }) => {
 				<option value=''></option>
 				{options.map((option) => (
 					<option key={option._id} value={option._id}>
-						{option.name}
+						{option[dataKey]}
 					</option>
 				))}
 			</select>

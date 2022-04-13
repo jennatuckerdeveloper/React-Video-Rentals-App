@@ -54,17 +54,20 @@ const RegisterForm = () => {
 	}
 
 	return (
-		<ComposeForm
-			doSubmit={doSubmit}
-			submitButtonLabel={'Register'}
-			formData={formData}
-			schema={schema}
-			updateFormData={updateFormData}
-			errors={errors}>
-			<FormInput type='text' name='email' label='Email' />
-			<FormInput type='password' name='password' label='Password' />
-			<FormInput type='text' name='name' label='Name' />
-		</ComposeForm>
+		<React.Fragment>
+			<h3 className='mb-3'>Register</h3>
+			<ComposeForm
+				doSubmit={doSubmit}
+				submitButtonLabel={'Register'}
+				formData={formData}
+				schema={schema}
+				updateFormData={updateFormData}
+				errors={errors}>
+				<FormInput type='text' name='email' label='Email' />
+				<FormInput type='password' name='password' label='Password' />
+				<FormInput type='text' name='name' label='Name' />
+			</ComposeForm>
+		</React.Fragment>
 	)
 }
 

@@ -55,7 +55,6 @@ const NavBar = () => {
 				)}
 				{auth.user && (
 					<React.Fragment>
-						{' '}
 						<li className='nav-item'>
 							<NavLink
 								className={({ isActive }) => linkStyle(isActive)}

@@ -1,8 +1,10 @@
 import React from 'react'
 import NavBar from './components/common/NavBar'
+import Account from './components/Account'
 import Movies from './components/Movies'
 import Customers from './components/Customers'
 import Rentals from './components/Rentals'
+import RentalForm from './components/RentalForm'
 import NotFound from './components/NotFound'
 import MovieForm from './components/MovieForm'
 import CustomerForm from './components/CustomerForm'
@@ -28,6 +30,7 @@ const App = () => {
 						<Route path='register' element={<RegisterForm />} />
 						<Route path='login' element={<LoginForm />} />
 						<Route path='logout' element={<Logout />} />
+						<Route path='account' element={<Account />} />
 						<Route path='movies' element={<Movies navigate={navigate} />} />
 						<Route
 							path='movies/new'
@@ -40,7 +43,11 @@ const App = () => {
 						<Route path='movies/:movieId' element={<MovieForm />} />
 						<Route
 							path='customers'
-							element={<Customers navigate={navigate} />}
+							element={
+								<RequireAuth>
+									<Customers navigate={navigate} />
+								</RequireAuth>
+							}
 						/>
 						<Route
 							path='customers/new'
@@ -51,7 +58,24 @@ const App = () => {
 							}
 						/>
 						<Route path='customers/:customerId' element={<CustomerForm />} />
-						<Route path='rentals' element={<Rentals />} />
+
+						<Route
+							path='rentals'
+							element={
+								<RequireAuth>
+									<Rentals navigate={navigate} />
+								</RequireAuth>
+							}
+						/>
+						<Route
+							path='rentals/new'
+							element={
+								<RequireAuth>
+									<RentalForm />
+								</RequireAuth>
+							}
+						/>
+						<Route path='rentals/:customerId' element={<RentalForm />} />
 						<Route path='/' element={<Navigate to='/movies' />} />
 						<Route path='not-found' element={<NotFound />} />
 						<Route path='*' element={<NotFound />} />

@@ -64,7 +64,7 @@ const Customers = ({ navigate }) => {
 					<button
 						type='button'
 						className='btn btn-primary mb-4'
-						onClick={() => navigate('Customers/new', { replace: true })}>
+						onClick={() => navigate('customers/new', { replace: true })}>
 						New customer
 					</button>
 				)}

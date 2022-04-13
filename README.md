@@ -6,7 +6,12 @@ This frontend app is based on [Mosh Hamedani's React course](https://codewithmos
 
 Some key changes to this version include:
 
+- Updates to current versions of all libraries and dependencies.
 - Use of function components rather than class components for stateful components.
+- Use of React context API to manage user info for authenticated and authorized UI state logic.
+- Substantial refactor of table pagination logic (filter data, sort data, page of data).
+- Customer page with view all, search, create, update, and delete operations.
+- Rentals page with view all, search, create, and return operations.
 
 The focus in this application was to:
 

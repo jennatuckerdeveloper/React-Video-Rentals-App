@@ -44,6 +44,7 @@ const LoginForm = () => {
 
 	return (
 		<React.Fragment>
+			<h3 className='mb-3'>Login</h3>
 			<ComposeForm
 				doSubmit={doSubmit}
 				submitButtonLabel={'Login'}

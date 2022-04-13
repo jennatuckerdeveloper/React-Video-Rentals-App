@@ -41,7 +41,11 @@ const App = () => {
 						<Route path='movies/:movieId' element={<MovieForm />} />
 						<Route
 							path='customers'
-							element={<Customers navigate={navigate} />}
+							element={
+								<RequireAuth>
+									<Customers navigate={navigate} />
+								</RequireAuth>
+							}
 						/>
 						<Route
 							path='customers/new'
@@ -53,7 +57,14 @@ const App = () => {
 						/>
 						<Route path='customers/:customerId' element={<CustomerForm />} />
 
-						<Route path='rentals' element={<Rentals navigate={navigate} />} />
+						<Route
+							path='rentals'
+							element={
+								<RequireAuth>
+									<Rentals navigate={navigate} />
+								</RequireAuth>
+							}
+						/>
 						<Route
 							path='rentals/new'
 							element={

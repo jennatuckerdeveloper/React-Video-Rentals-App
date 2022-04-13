@@ -18,12 +18,9 @@ const CustomersTable = ({
 		{
 			value: 'name',
 			label: 'Name',
-			content: (customer) =>
-				auth.user && auth.user.isAdmin ? (
-					<Link to={customer._id}>{customer.name}</Link>
-				) : (
-					<span>{customer.title}</span>
-				)
+			content: (customer) => (
+				<Link to={`/rentals/${customer._id}`}>{customer.name}</Link>
+			)
 		},
 		{ value: 'phone', label: 'Phone' },
 		{

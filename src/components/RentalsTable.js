@@ -10,12 +10,9 @@ const RentalsTable = ({ rentals, onSort, selectedSort, checkInRental }) => {
 		{
 			value: 'customer',
 			label: 'Customer',
-			content: (rental) =>
-				auth.user && auth.user.isAdmin ? (
-					<Link to={rental.customer._id}>{rental.customer.name}</Link>
-				) : (
-					<span>{rental.customer.name}</span>
-				)
+			content: (rental) => (
+				<Link to={rental.customer._id}>{rental.customer.name}</Link>
+			)
 		},
 		{ value: 'customer.phone', label: 'Phone' },
 		{
@@ -44,9 +41,7 @@ const RentalsTable = ({ rentals, onSort, selectedSort, checkInRental }) => {
 					<span>still out</span>
 				)
 			}
-		}
-	]
-	const authOnlyColumns = [
+		},
 		{
 			key: 'checkIn',
 			content: (rental) => {
@@ -64,6 +59,7 @@ const RentalsTable = ({ rentals, onSort, selectedSort, checkInRental }) => {
 			}
 		}
 	]
+	const authOnlyColumns = []
 	return (
 		<Table
 			data={rentals}

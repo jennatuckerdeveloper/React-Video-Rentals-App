@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react'
 import RentalsTable from './RentalsTable'
 import Pagination from './common/Pagination'
 import FormInput from './common/FormInput'
-import { useAuth } from '../hooks/useAuth'
 import { pagedData } from '../utils/pagedData'
 import { filterDataByInput } from '../utils/filterDataByInput'
 import { getRentals } from '../services/rentalService'
 import { checkInRental } from '../services/returnService'
-
-import _ from 'lodash'
 
 const Rentals = ({ navigate }) => {
 	const [rentals, setRentals] = useState([])
@@ -19,8 +16,6 @@ const Rentals = ({ navigate }) => {
 		order: 'desc'
 	})
 	const [searchString, setSearchString] = useState('')
-
-	let auth = useAuth()
 
 	useEffect(() => {
 		try {
@@ -67,15 +62,12 @@ const Rentals = ({ navigate }) => {
 	return (
 		<div className='row'>
 			<div className='col mt-3'>
-				{auth.user && auth.user.isAdmin && (
-					<button
-						type='button'
-						className='btn btn-primary mb-4'
-						onClick={() => navigate('rentals/new', { replace: true })}>
-						New rental
-					</button>
-				)}
-
+				<button
+					type='button'
+					className='btn btn-primary mb-4'
+					onClick={() => navigate('rentals/new', { replace: true })}>
+					New rental
+				</button>
 				<p>There are {rentalsCount} Rentals in the database.</p>
 				<FormInput
 					type={'text'}

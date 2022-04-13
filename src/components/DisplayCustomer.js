@@ -1,9 +1,11 @@
 import GoldMemberIcon from './GoldMemberIcon'
 import ActionButton from './ActionButton'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 
 const DisplayCustomer = ({ customer }) => {
 	const navigate = useNavigate()
+	const auth = useAuth()
 	return (
 		<div className='card mb-2'>
 			<h5 className='card-header'>Customer:</h5>
@@ -13,12 +15,14 @@ const DisplayCustomer = ({ customer }) => {
 				<p className='card-text'>
 					{customer.isGold ? <GoldMemberIcon /> : null}
 				</p>
-				<ActionButton
-					label={'Update'}
-					onClick={() => {
-						navigate(`/customers/${customer._id}`)
-					}}
-				/>
+				{auth.isAdmin && (
+					<ActionButton
+						label={'Update'}
+						onClick={() => {
+							navigate(`/customers/${customer._id}`)
+						}}
+					/>
+				)}
 			</div>
 		</div>
 	)

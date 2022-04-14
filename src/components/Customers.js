@@ -6,7 +6,6 @@ import { useAuth } from '../hooks/useAuth'
 import { pagedData } from '../utils/pagedData'
 import { filterDataByInput } from '../utils/filterDataByInput'
 import { getCustomers, deleteCustomer } from '../services/customerService'
-import _ from 'lodash'
 
 const Customers = ({ navigate }) => {
 	const [customers, setCustomers] = useState([])

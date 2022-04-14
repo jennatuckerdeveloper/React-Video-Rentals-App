@@ -2,6 +2,8 @@
 
 This application was built by Jenna Tucker as a learning/practice exercise in fullstack JavaScript. [The app is currently deployed on Heroku](https://gentle-ravine-70551.herokuapp.com/).
 
+Anyone can register a user, and login with the following test user that has been granted admin status to demo the functionality when a user is authorized: `username: someone@email.com password: 12345678`
+
 This frontend app is based on [Mosh Hamedani's React course](https://codewithmosh.com/p/mastering-react), though this version has many distinctions.
 
 Some key changes to this version include:

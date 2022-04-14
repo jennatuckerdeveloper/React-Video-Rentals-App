@@ -38,7 +38,7 @@ const RentalsTable = ({ rentals, onSort, selectedSort, checkInRental }) => {
 				return rental.dateReturned ? (
 					<span>{new Date(rental.dateReturned).toDateString()}</span>
 				) : (
-					<span>still out</span>
+					<span className='font-italic'>still out</span>
 				)
 			}
 		},
